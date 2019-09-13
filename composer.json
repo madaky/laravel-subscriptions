@@ -1,0 +1,43 @@
+{
+    "name": "kbtechlabs/laravel-subscriptions",
+    "description": ":description",
+    "license": "license",
+    "authors": [
+        {
+            "name": "author name",
+            "email": "author email",
+            "homepage": "author homepage"
+        }
+    ],
+    "homepage": "https://github.com/kbtechlabs/laravel-subscriptions",
+    "keywords": ["Laravel", "laravel-subscriptions"],
+    "require": {
+        "illuminate/support": "~6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3.0",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "kbtechlabs\\LaravelSubscriptions\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "kbtechlabs\\LaravelSubscriptions\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "kbtechlabs\\LaravelSubscriptions\\LaravelSubscriptionsServiceProvider"
+            ],
+            "aliases": {
+                "laravel-subscriptions": "kbtechlabs\\LaravelSubscriptions\\Facades\\laravel-subscriptions"
+            }
+        }
+    }
+}

@@ -1,6 +1,6 @@
 <?php
 
-namespace kbtechlabs\laravelSubscriptions;
+namespace kbtechlabs\LaravelSubscriptions;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +14,7 @@ class LaravelSubscriptionsServiceProvider extends ServiceProvider
     public function boot()
     {
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'kbtechlabs');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'kbtechlabs');
+        $this->loadViewsFrom(__DIR__.'/../resources/views','LaravelSubscriptions');
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
          $this->app['router']->namespace('kbtechlabs\\LaravelSubscriptions\\Controllers')
@@ -39,7 +39,7 @@ class LaravelSubscriptionsServiceProvider extends ServiceProvider
 
         // Register the service the package provides.
         $this->app->singleton('laravel-subscriptions', function ($app) {
-            return new laravel-subscriptions;
+            return new LaravelSubscriptions;
         });
     }
 
@@ -50,7 +50,7 @@ class LaravelSubscriptionsServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['laravel-subscriptions'];
+        return ['LaravelSubscriptions'];
     }
     
     /**
@@ -70,9 +70,9 @@ class LaravelSubscriptionsServiceProvider extends ServiceProvider
                 __DIR__ . '/../database/migrations/' => database_path('migrations'),
             ], 'migrations');    
         // Publishing the views.
-        /*$this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/kbtechlabs'),
-        ], 'laravel-subscriptions.views');*/
+        $this->publishes([
+            __DIR__.'/../resources/views' => base_path('resources/views/LaravelSubscriptions'),
+        ], 'laravelsubscriptions.views');
 
         // Publishing assets.
         /*$this->publishes([

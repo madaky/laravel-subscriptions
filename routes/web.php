@@ -6,4 +6,6 @@
  * and open the template in the editor.
  */
 
-Route::get('package','PlanController@index');
+Route::get('package','PlanController@index')->name('rolecreation');
+Route::post('package','PlanController@create')->name('rolepcreation');
+

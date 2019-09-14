@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlansTables extends Migration
+class CreateUserPlanSubscriptions extends Migration
 {
     use Illuminate\Database\Eloquent\SoftDeletes;
     /**
@@ -14,19 +14,18 @@ class CreatePlansTables extends Migration
      */
     public function up()
     {
-        Schema::create('plans', function (Blueprint $table) {
+        Schema::create('user_plan_subscriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uid')->unique();
-            $table->string('name')->unique();
-            $table->text('description')->nullable();
-            $table->integer('limit')->nullable();
-            $table->integer('limit_use')->nullable();
-            $table->float('price');
-            $table->integer('durations')->comment("In Days");
-            $table->dateTime('start_at')->nullable();
-            $table->dateTime('ends_at')->nullable();
+            $table->unsignedBigInteger('user_plan_id');
+            $table->integer('balance_limit');
+            $table->integer('balance_days');
+            $table->dateTime('started_at');
+            $table->dateTime('ends_at');
+            $table->boolean('is_expired')->comment('0=>false,1=>true');
             $table->softDeletes();
             $table->timestamps();
+            $table->foreign('user_plan_id')->references('id')->on('user_plans');
         });
     }
 
@@ -37,6 +36,6 @@ class CreatePlansTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plans_tables');
+        Schema::dropIfExists('user_plan_subscriptions');
     }
 }

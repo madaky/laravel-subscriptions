@@ -4,8 +4,8 @@ return [
     //
     
     'models'=>[
-        'plan' => \kbtechlabs\LaravelSubscription\Models\Plan::class,
-        'subscription' => \kbtechlabs\LaravelSubscription\Models\UserPlanSubscription::class,
-        'subscriptionPayment' => \kbtechlabs\LaravelSubscription\Models\SubscriptionPayment::class
+        'plan' => \kbtechlabs\LaravelSubscriptions\Models\Plan::class,
+        'subscription' => \kbtechlabs\LaravelSubscriptions\Models\UserPlanSubscription::class,
+        'subscriptionPayment' => \kbtechlabs\LaravelSubscriptions\Models\SubscriptionPayment::class
     ],
 ];

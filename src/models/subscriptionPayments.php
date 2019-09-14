@@ -1,6 +1,6 @@
 <?php
 
-    namespace kbtechlabs\LaravelSubscription\Models;
+    namespace kbtechlabs\LaravelSubscriptions\Models;
 
     use Illuminate\Database\Eloquent\Model;
 

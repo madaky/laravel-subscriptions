@@ -1,15 +1,20 @@
 <?php
 
-   namespace kbtechlabs\LaravelSubscription\Models;
+namespace kbtechlabs\LaravelSubscriptions\Models;
 
-    use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
-    class Plan extends Model
-    {
-        protected $fillable = [
-            'id', 
-            'price', 
-            'renew_in'
-        ];
-        
+class Plan extends Model {
+
+    use \kbtechlabs\LaravelSubscriptions\Traits\UseUuid;
+
+    protected $fillable = [
+        'id','name','price','durations'
+    ];
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+        $this->table = config('laravel-subscriptions.plan');
     }
+
+}

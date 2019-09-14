@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlansTables extends Migration
+class CreatePlanDiscountCouponsTable extends Migration
 {
     use Illuminate\Database\Eloquent\SoftDeletes;
     /**
@@ -14,19 +14,18 @@ class CreatePlansTables extends Migration
      */
     public function up()
     {
-        Schema::create('plans', function (Blueprint $table) {
+        Schema::create('plan_discount_coupons', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uid')->unique();
-            $table->string('name')->unique();
-            $table->text('description')->nullable();
-            $table->integer('limit')->nullable();
-            $table->integer('limit_use')->nullable();
-            $table->float('price');
-            $table->integer('durations')->comment("In Days");
-            $table->dateTime('start_at')->nullable();
-            $table->dateTime('ends_at')->nullable();
+            $table->unsignedBigInteger('plan_id');
+            $table->string('code',6)->unique();
+            $table->integer('apply_limit');
+            $table->decimal('percentage',5,2);
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->softDeletes();
             $table->timestamps();
+            $table->foreign('plan_id')->references('id')->on('plans');
         });
     }
 
@@ -37,6 +36,6 @@ class CreatePlansTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plans_tables');
+        Schema::dropIfExists('plan_discount_coupons');
     }
 }

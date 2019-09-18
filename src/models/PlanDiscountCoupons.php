@@ -4,13 +4,10 @@
 
     use Illuminate\Database\Eloquent\Model;
 
-    class SubscriptionPayment extends Model
+    class PlanDiscountCoupon extends Model
     {
         protected $fillable = [
             'id', 
         ];
         
-        public function UserPlanSubscriptions(){
-            $this->belongsTo(UserPlanSubscription::class);
-        }
     }

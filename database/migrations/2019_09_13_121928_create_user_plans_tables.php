@@ -19,7 +19,12 @@ class CreateUserPlansTables extends Migration
             $table->uuid('uid')->unique();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('plan_id');
-            $table->boolean('is_active')->default(0)->comment('0=>false,1=>true');
+            $table->boolean('is_active')->default(0)->comment('0=>false,1=>true,2=>processing');
+            $table->boolean('is_discount')->default(0)->comment('0=>false, 1=>true');
+            $table->float('discount_amount')->nullable();
+            $table->unsignedBigInteger('discount_coupon_id')->nullable();
+            $table->float('plan_amount');
+            $table->float('total_amount');
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');

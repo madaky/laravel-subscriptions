@@ -17,7 +17,7 @@ class CreateUserPlanSubscriptions extends Migration
         Schema::create('user_plan_subscriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uid')->unique();
-            $table->unsignedBigInteger('user_plan_id');
+            $table->unsignedBigInteger('user_plan_id')->unique();
             $table->integer('balance_limit');
             $table->integer('balance_days');
             $table->dateTime('started_at');

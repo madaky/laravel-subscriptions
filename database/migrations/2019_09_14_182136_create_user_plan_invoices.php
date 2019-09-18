@@ -18,12 +18,12 @@ class CreateUserPlanInvoices extends Migration
             $table->bigIncrements('id');
             $table->uuid('uid')->unique();
             $table->string('bill_id')->nullable();
-            $table->unsignedBigInteger('user_plan_payment_id')->nullable();
+            $table->unsignedBigInteger('user_plan_transaction_id')->unique();
             $table->float('amount');
             $table->boolean('is_paid')->comment('0=>false,1=>true');
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('user_plan_payment_id')->references('id')->on('user_plan_payments');
+            $table->foreign('user_plan_transaction_id')->references('id')->on('user_plan_transactions');
         });
     }
 

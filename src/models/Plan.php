@@ -5,7 +5,6 @@ namespace kbtechlabs\LaravelSubscriptions\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Plan extends Model {
-
     use \kbtechlabs\LaravelSubscriptions\Traits\UseUuid;
 
     protected $fillable = [

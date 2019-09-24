@@ -30,4 +30,7 @@ class PlanController extends Controller {
     public function getPayment(Request $request) {
         return $this->getPaymentStatus($request);        
     }
+    public function failedPayment() {
+        return view('LaravelSubscriptions::subscriptions.errors.payments.failed');
+    }
 }

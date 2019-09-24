@@ -75,9 +75,7 @@ trait PayPal {
     public function getPaymentStatus($request){
         $this->getApiContext();
         if (!$request->has('PayerID') || !$request->has('token')) {
-            session(['error'=>'Payment failed']);
-            //return Redirect::route('addmoney.paywithpaypal');
-            dd('No Payment ID');
+           return Redirect::route('paymentfailed') ;
         }
         $this->paymentId = $request->input('paymentId');
         $paymentTransactions = $this->getTransactionByPaymentId();
@@ -115,11 +113,8 @@ trait PayPal {
             $planUpdate->save();
             $this->generateSubscription($paymentTransactions);
             $this->generateInvoice($paymentTransactions);
-            /** it's all right **/
-            /** Here Write your database logic like that insert record or value in database if you want **/
-            //\Session::put('success','Payment success');
-            //return Redirect::route('addmoney.paywithpaypal');
-            dd('approved');
+                Auth::loginUsingId($paymentTransactions->user()->first()->id);
+                return redirect()->route('home');
         }
         Session::put('error','Payment failed');
         return Redirect::route('addmoney.paywithpaypal');

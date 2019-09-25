@@ -14,7 +14,7 @@ class PlanController extends Controller {
     }
     
     public function create(Request $request){
-        Plan::create([
+        return Plan::create([
             'name'=>$request->post('plan'),
             'price'=>$request->post('price'),
             'durations'=>$request->post('duration'),
@@ -24,7 +24,6 @@ class PlanController extends Controller {
             'start_at'=> $request->has('start_at') ?    $request->post('start_at'): null,
             'ends_at'=> $request->has('ends_at') ? $request->post('ends_at'): null,
         ]);
-        die();
     }
     
     public function getPayment(Request $request) {

@@ -13,20 +13,6 @@ trait HasTranscation {
                         ->first();
     }
     
-//    public function checkTransactionSubscription(){
-//        $currentTranscation = $this->getSuccessTranscation();
-//        if( !is_null($currentTranscation)){
-//            if($currentTranscation->first()->subscription()->first()){
-//                
-//            }
-//            dd();
-//        }
-//    }
-    
-//    public function getSubscription(){
-//        
-//    }
-    
     public function getSuccessTranscation(){
         return config('laravel-subscriptions.models.transaction')::where('txn_id',$this->paymentId)
                        ->where('is_success',1);

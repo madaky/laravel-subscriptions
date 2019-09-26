@@ -5,6 +5,7 @@ use Illuminate\Support\Arr;
 use kbtechlabs\LaravelSubscriptions\Models\PlanDiscountCoupon;
 use kbtechlabs\LaravelSubscriptions\Models\UserPlanTransaction;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 trait HasPlans {
     use PayPal;
     protected $plans;
@@ -24,9 +25,9 @@ trait HasPlans {
         }
         $this->plans = null;
         $this->currentPlan = $plan;
-        $this->data = $data;
+        $this->data = $data->all();;
         $this->plans()->attach($plan,$this->generatePlanData());
-        return $this->generatePayment();
+        return $this->generatePayment($data);
     }
     
     public function getPlans(){

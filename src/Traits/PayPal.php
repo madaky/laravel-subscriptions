@@ -17,12 +17,13 @@ use Illuminate\Support\Facades\Redirect;
 use kbtechlabs\LaravelSubscriptions\Models\UserPlanTranscation;
 use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 trait PayPal {
     Use HasTranscation;
     Use HasInvoice;
     protected $apiContext;
     protected $paymentId;
-    public function generatePayment(){
+    public function generatePayment(Request $request){
         $this->getApiContext();
         $cPlan = $this->getCurrentPlan();
         $payer = new Payer();
@@ -60,9 +61,12 @@ trait PayPal {
             }
         }
         if(isset($redirect_url)) {
-            Redirect::away($redirect_url)->send();
+            if(!$request->isXmlHttpRequest()){
+                Redirect::away($redirect_url)->send();
+            }else{
+                return response()->json($redirect_url);
+            }
         }
-        die();
     }
     
     public function getApiContext(){
@@ -82,8 +86,7 @@ trait PayPal {
         if(is_null($paymentTransactions)){
             $paymentTransactions = $this->getSuccessTranscation()->first();
             if($paymentTransactions->userplan()->first()->is_active ==1 ){
-                Auth::loginUsingId($paymentTransactions->user()->first()->id);
-                return redirect()->route('home');
+                return redirect('/');
             }
             dd('User Allready approved the transaction or Norelevant data found');
         }
@@ -113,8 +116,8 @@ trait PayPal {
             $planUpdate->save();
             $this->generateSubscription($paymentTransactions);
             $this->generateInvoice($paymentTransactions);
-                Auth::loginUsingId($paymentTransactions->user()->first()->id);
-                return redirect()->route('home');
+                //Auth::login($paymentTransactions->user());
+                return redirect('/')->with(['message'=>'Transaction Succesful!!, Login to continue..','type'=>'success']);
         }
         Session::put('error','Payment failed');
         return Redirect::route('addmoney.paywithpaypal');

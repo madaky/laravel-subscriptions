@@ -9,7 +9,6 @@ trait UseUuid {
     {
         static::creating(function ($model) {
             if(Schema::hasColumn($model->getTable(),'uid')){
-                
                 $model->uid = (string) Str::uuid();
             }
         });
